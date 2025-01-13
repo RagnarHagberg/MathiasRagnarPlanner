@@ -24,6 +24,8 @@ public class CenterPanel extends JPanel implements MouseListener {
         setLayout(null);
         this.addMouseListener(this);
 
+        setPreferredSize(new Dimension(timelineWidth,600)); // A large width to allow seemingly indefinite scroll
+        // the timeline should span the entire scrollable width
         timeline = new TimelinePanel();
         timeline.setBounds(timelineX, timelineY, timelineWidth, timelineHeight);
         add(timeline);

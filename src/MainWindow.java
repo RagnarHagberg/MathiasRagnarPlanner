@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 
 
-
 public class MainWindow {
 
     private JFrame frame;
@@ -28,11 +27,17 @@ public class MainWindow {
 
         NorthPanel northPanel = new NorthPanel();
         CenterPanel centerPanel = new CenterPanel();
+        JScrollPane scrollPane = new JScrollPane(centerPanel);
+
+        // Set only horizontal scroll
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
 
         //panel.setPreferredSize(new Dimension(100,250));
 
         frame.add(northPanel, BorderLayout.NORTH); //NOrth south west east
-        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(scrollPane, BorderLayout.CENTER);
     }
 
     public void show(){
