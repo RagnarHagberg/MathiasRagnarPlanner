@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataHandler {
+public class FileManager {
     public static void saveCardData(List<CardData> cardDataList, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (CardData cardData : cardDataList) {
@@ -24,6 +24,8 @@ public class DataHandler {
                     String title = parts[0];
                     int x = Integer.parseInt(parts[1]);
                     int y = Integer.parseInt(parts[2]);
+
+                    // if parts[0] == image new imagecardData
                     cardDataList.add(new CardData(title, x, y));
                 }
             }

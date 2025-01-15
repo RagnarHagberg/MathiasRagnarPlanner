@@ -1,9 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 
 class RoundedCard extends JPanel {
     private final String title;
+    private Color cardColor = new Color(200, 230, 255);
 
     public RoundedCard(String title) {
         this.title = title;
@@ -24,7 +27,7 @@ class RoundedCard extends JPanel {
 
         // Draw rounded rectangle
         int arc = 30;
-        g2.setColor(new Color(200, 230, 255));
+        g2.setColor(cardColor);
         g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc));
 
         // Draw the border
@@ -39,5 +42,7 @@ class RoundedCard extends JPanel {
         int titleX = (getWidth() - fm.stringWidth(title)) / 2;
         int titleY = (getHeight() + fm.getAscent()) / 2 - 10; // Center font vertically
         g2.drawString(title, titleX, titleY);
+
+
     }
 }
