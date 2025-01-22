@@ -25,13 +25,12 @@ public class CenterPanel extends JPanel implements MouseListener {
     private String cardFilePath = "cards_data.txt";
     private String panelWidthPath = "timeline_data.txt";
 
-
     public CenterPanel(){
         setBackground(Color.PINK);
         setLayout(null);
         this.addMouseListener(this);
 
-        panelWidth = FileManager.loadPanelWidth(panelWidthPath);
+        panelWidth = FileManager.getInstance().loadPanelWidth(panelWidthPath);
         setPanelWidth(panelWidth);
 
 
@@ -55,7 +54,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     private void setPanelWidth(int width){
         panelWidth = width;
         timelineWidth = panelWidth -200;
-        FileManager.savePanelWidth(panelWidth, panelWidthPath);
+        FileManager.getInstance().savePanelWidth(panelWidth, panelWidthPath);
     }
 
     private void extendPanel(){
@@ -90,7 +89,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     }
 
     private void saveCards(String filename){
-        FileManager.saveCardData(cardDataList, filename);
+        FileManager.getInstance().saveCardData(cardDataList, filename);
     }
 
     private void loadCards(String filename){
@@ -99,7 +98,7 @@ public class CenterPanel extends JPanel implements MouseListener {
         cardDataList.clear();
 
         List<CardData> tempCardDataList = new ArrayList<CardData>();
-        tempCardDataList = FileManager.loadCardData(filename);
+        tempCardDataList = FileManager.getInstance().loadCardData(filename);
 
         for (CardData cardData : tempCardDataList) {
             // if carddata is imagecarddata

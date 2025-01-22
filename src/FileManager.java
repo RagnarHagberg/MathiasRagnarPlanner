@@ -3,7 +3,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
-    public static void saveCardData(List<CardData> cardDataList, String filename) {
+
+    private static FileManager singletonInstance = null;
+
+    private FileManager(){}
+
+    public static FileManager getInstance(){
+        if (singletonInstance == null){
+            singletonInstance = new FileManager();
+        }
+        return singletonInstance;
+
+    }
+    public void saveCardData(List<CardData> cardDataList, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (CardData cardData : cardDataList) {
                 writer.write(cardData.title + "," + cardData.x + "," + cardData.y);
@@ -14,7 +26,7 @@ public class FileManager {
         }
     }
 
-    public static List<CardData> loadCardData(String filename) {
+    public List<CardData> loadCardData(String filename) {
         List<CardData> cardDataList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -36,7 +48,7 @@ public class FileManager {
 
     }
 
-    public static void savePanelWidth(int width, String filename) {
+    public void savePanelWidth(int width, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(Integer.toString(width));
         } catch (IOException e) {
@@ -44,7 +56,7 @@ public class FileManager {
         }
     }
 
-    public static int loadPanelWidth(String filename) {
+    public int loadPanelWidth(String filename) {
 
         int width = 3000;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
