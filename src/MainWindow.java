@@ -38,6 +38,8 @@ public class MainWindow {
 
         frame.add(northPanel, BorderLayout.NORTH); //NOrth south west east
         frame.add(scrollPane, BorderLayout.CENTER);
+
+
     }
 
     public void show(){
