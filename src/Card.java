@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-class RoundedCard extends JPanel {
+class Card extends JPanel {
     private final String title;
     private Color cardColor = new Color(200, 230, 255);
 
-    public RoundedCard(String title) {
+    public Card(String title) {
         this.title = title;
         setOpaque(false); // Allow transparency for custom painting
     }

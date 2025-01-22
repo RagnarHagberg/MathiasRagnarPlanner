@@ -68,7 +68,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     }
 
     private void addCard(String title, int x, int y){
-        RoundedCard card = new RoundedCard(title);
+        Card card = new Card(title);
         cardCount++;
 
         int cardWidth = 200;
@@ -106,7 +106,7 @@ public class CenterPanel extends JPanel implements MouseListener {
             // new ImageCard
             // else textcard
 
-            RoundedCard card = new RoundedCard(cardData.title);
+            Card card = new Card(cardData.title);
             addCard(cardData.title, cardData.x, cardData.y);
         }
     }
@@ -115,7 +115,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     private void removeCards(List<CardData> cardDataList) {
         Component[] components = getComponents();
         for (Component component : components) {
-            if (component instanceof RoundedCard) {
+            if (component instanceof Card) {
                 remove(component);
             }
         }
