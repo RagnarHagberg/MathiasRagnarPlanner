@@ -25,6 +25,8 @@ public class CenterPanel extends JPanel implements MouseListener {
     private String cardFilePath = "cards_data.txt";
     private String panelWidthPath = "timeline_data.txt";
 
+    public boolean isPlacingCard = false;
+
     public CenterPanel(){
         setBackground(Color.PINK);
         setLayout(null);
@@ -122,12 +124,11 @@ public class CenterPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        addCard(Integer.toString(cardCount), e.getX(), e.getY());
-        saveCards(cardFilePath);
-        System.out.println(e.getX());
-        System.out.println(e.getY());
-
-;
+        if (isPlacingCard) {
+            addCard(Integer.toString(cardCount), e.getX(), e.getY());
+            saveCards(cardFilePath);
+            isPlacingCard = false;
+        }
     }
 
     @Override
