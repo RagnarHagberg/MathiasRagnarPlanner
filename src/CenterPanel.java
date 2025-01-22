@@ -13,7 +13,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     private int panelWidth = 3000;
     private int timelineX = 0;
     private int timelineY = 250;
-    private int timelineWidth = 2800;
+    private int timelineWidth = panelWidth-200;
     private int timelineHeight = 100;
 
     private int buttonCardMargin = 20;
@@ -22,11 +22,18 @@ public class CenterPanel extends JPanel implements MouseListener {
 
     private List<CardData> cardDataList = new ArrayList<CardData>();
 
+    private String cardFilePath = "cards_data.txt";
+    private String panelWidthPath = "timeline_data.txt";
+
 
     public CenterPanel(){
         setBackground(Color.PINK);
         setLayout(null);
         this.addMouseListener(this);
+
+        panelWidth = FileManager.loadPanelWidth(panelWidthPath);
+        setPanelWidth(panelWidth);
+
 
         setPreferredSize(new Dimension(panelWidth,1)); // A large width to allow seemingly indefinite scroll
         // the timeline should span the entire scrollable width
@@ -42,13 +49,17 @@ public class CenterPanel extends JPanel implements MouseListener {
         extendButton.setFocusable(false);
         add(extendButton);
 
-        loadCards("cards_data.txt");
+        loadCards(cardFilePath);
     }
 
+    private void setPanelWidth(int width){
+        panelWidth = width;
+        timelineWidth = panelWidth -200;
+        FileManager.savePanelWidth(panelWidth, panelWidthPath);
+    }
 
     private void extendPanel(){
-        panelWidth += 500;
-        timelineWidth = panelWidth - 200;
+        setPanelWidth(panelWidth + 500);
         setPreferredSize(new Dimension(panelWidth,1));
         timeline.setBounds(timelineX, timelineY, timelineWidth, timelineHeight);
         extendButton.setBounds(timelineWidth+buttonCardMargin, timelineY, 100, 100);
@@ -113,7 +124,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         addCard(Integer.toString(cardCount), e.getX(), e.getY());
-        saveCards("cards_data.txt");
+        saveCards(cardFilePath);
         System.out.println(e.getX());
         System.out.println(e.getY());
 

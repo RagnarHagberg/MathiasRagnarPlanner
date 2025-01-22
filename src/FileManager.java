@@ -33,5 +33,27 @@ public class FileManager {
             e.printStackTrace();
         }
         return cardDataList;
+
+    }
+
+    public static void savePanelWidth(int width, String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(Integer.toString(width));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int loadPanelWidth(String filename) {
+
+        int width = 3000;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            line = reader.readLine();
+            width = Integer.parseInt(line);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return width;
     }
 }
