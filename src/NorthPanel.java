@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class NorthPanel extends JPanel {
     public NorthPanel(){
-        setLayout(new BorderLayout(20,20));
+        setLayout(new BorderLayout(50,50));
         //setLayout(new FlowLayout(FlowLayout.LEFT, 10,5));
         setBackground(Color.LIGHT_GRAY);
 
@@ -14,6 +14,7 @@ public class NorthPanel extends JPanel {
         add(label, BorderLayout.WEST);
 
         JButton button = new JButton("Add card");
+        button.setPreferredSize(new Dimension(200,50));
         add(button, BorderLayout.EAST);
 
 
