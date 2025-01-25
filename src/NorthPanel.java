@@ -13,7 +13,7 @@ public class NorthPanel extends JPanel {
         label.setFont(new Font("Sans-serif", Font.BOLD, 36));
         label.setForeground(Color.WHITE);
 
-        CreatorDialog dialog = new CreatorDialog();
+        CreatorDialog dialog = new ImageCreatorDialog();
 
         add(label, BorderLayout.WEST);
 

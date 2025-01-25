@@ -3,37 +3,38 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class CreatorDialog extends JDialog{
-    CardCreator creator;
+public abstract class CreatorDialog extends JDialog{
+
+    JLabel titleLabel;
+    JTextField title;
+
+    JLabel descriptionLabel;
+    JTextArea description;
+
+    JLabel hoursToCompleteLabel;
+    JTextField hoursToComplete;
+
+    JButton createButton;
+    JButton colorChooserButton;
+    JLabel colorPreview;
 
     public CreatorDialog(){
-        JLabel label = new JLabel("Hello");
         setLayout(new GridLayout(0, 1));
-        setSize(500,500);
-
-        JLabel titleLabel = new JLabel("Title:");
-        JTextField title = new JTextField("skriv desc");
-
-        JLabel descriptionLabel = new JLabel("Description:");
-        JTextArea description = new JTextArea();
-
-        JLabel hoursToCompleteLabel = new JLabel("Hours:");
-        JTextField hoursToComplete = new JTextField();
-
-        add(titleLabel);
-        add(title);
-        add(descriptionLabel);
-        add(description);
-        add(hoursToCompleteLabel);
-        add(hoursToComplete);
-        //JLabel
-
+        setSize(300,300);
     }
 
+    public abstract Card createCard();
+
     public void initialize(){
-        // clear input fields
+        resetFields();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public void resetFields(){
+        title.setText("");
+        description.setText("");
+        hoursToComplete.setText("");
     }
 
 }
