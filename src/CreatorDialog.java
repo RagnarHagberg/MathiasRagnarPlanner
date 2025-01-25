@@ -21,17 +21,19 @@ public abstract class CreatorDialog extends JDialog{
     public CreatorDialog(){
         setLayout(new GridLayout(0, 1));
         setSize(300,300);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
     }
 
     public abstract Card createCard();
 
     public void initialize(){
-        resetFields();
+        //resetFields();
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    public void resetFields(){
+    public void resetFields(){  //behövs troligtvis inte
         title.setText("");
         description.setText("");
         hoursToComplete.setText("");

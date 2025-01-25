@@ -8,10 +8,7 @@ public class TextCreatorDialog extends CreatorDialog {
 
     public TextCreatorDialog(){
         super();
-
-        setLayout(new GridLayout(0, 1));
-        setSize(300,300);
-
+        setTitle("Text card creator");
 
         titleLabel = new JLabel("Title:");
         title = new JTextField();

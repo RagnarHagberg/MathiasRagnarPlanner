@@ -11,7 +11,7 @@ public class ImageCreatorDialog extends CreatorDialog{
 
     public ImageCreatorDialog(){
         super();
-
+        setTitle("Image card creator");
 
         titleLabel = new JLabel("Title:");
         title = new JTextField();
