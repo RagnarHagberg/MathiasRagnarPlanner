@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 
 class Card extends JPanel {
@@ -8,39 +12,29 @@ class Card extends JPanel {
 
     public Card(String title) {
         this.title = title;
-        setOpaque(false); // Allow transparency for custom painting
-    }
+        setBackground(Color.darkGray);
+        setLayout(new GridLayout(0,1,10,10));
 
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(titleLabel);
+
+        JButton button = new JButton("hello");
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Card pressed");
+                cardColor = Color.RED;
+                repaint();
+            }
+        });
+
+        add(button);
+    }
 
     public String getTitle() {
         return title;
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Draw rounded rectangle
-        int arc = 30;
-        g2.setColor(cardColor);
-        g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc));
-
-        // Draw the border
-        g2.setColor(Color.DARK_GRAY);
-        g2.setStroke(new BasicStroke(2));
-        g2.draw(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc));
-
-        // Draw the title
-        g2.setColor(Color.DARK_GRAY);
-        g2.setFont(new Font("SansSerif", Font.BOLD, 16));
-        FontMetrics fm = g2.getFontMetrics();
-        int titleX = (getWidth() - fm.stringWidth(title)) / 2;
-        int titleY = (getHeight() + fm.getAscent()) / 2 - 10; // Center font vertically
-        g2.drawString(title, titleX, titleY);
-
-
-    }
 }
