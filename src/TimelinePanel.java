@@ -2,12 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.formdev.flatlaf.FlatDarculaLaf;
 
 class TimelinePanel extends JPanel {
     private final List<Integer> markers = new ArrayList<>(); // X-coordinates of markers
 
     public TimelinePanel() {
-        setBackground(Color.BLACK); // Timeline background
+       // setBackground(Color.); // Timeline background
     }
 
     // Add a marker to the timeline

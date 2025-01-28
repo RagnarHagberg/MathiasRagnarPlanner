@@ -85,8 +85,10 @@ public class ImageCreatorDialog extends CreatorDialog{
         String descriptionText = description.getText();
         String hoursToCompleteText = hoursToComplete.getText();
         Color cardColor = colorPreview.getBackground();
-        String imageFile = fileChooser.getSelectedFile().getAbsolutePath();
-
+        if(fileChooser.getSelectedFile() != null) {
+            String imageFile = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        centerPanel.setPlacingCard(true);
         return null;
     }
     @Override

@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 
 public class CenterPanel extends JPanel implements MouseListener {
 
@@ -25,10 +27,10 @@ public class CenterPanel extends JPanel implements MouseListener {
     private String cardFilePath = "cards_data.txt";
     private String panelWidthPath = "timeline_data.txt";
 
-    public boolean isPlacingCard = true;
+    public boolean isPlacingCard = false;
 
     public CenterPanel(){
-        setBackground(Color.PINK);
+        setBackground(Color.lightGray);
         setLayout(null);
         this.addMouseListener(this);
 
@@ -51,6 +53,10 @@ public class CenterPanel extends JPanel implements MouseListener {
         add(extendButton);
 
         loadCards(cardFilePath);
+    }
+
+    public void setPlacingCard(boolean newValue){
+        isPlacingCard = newValue;
     }
 
     private void setPanelWidth(int width){
@@ -129,7 +135,7 @@ public class CenterPanel extends JPanel implements MouseListener {
 
             addCard(Integer.toString(cardCount), e.getX(), e.getY());
             saveCards(cardFilePath);
-            //isPlacingCard = false;
+            isPlacingCard = false;
         }
     }
 

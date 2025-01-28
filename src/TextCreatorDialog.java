@@ -72,6 +72,7 @@ public class TextCreatorDialog extends CreatorDialog {
         String descriptionText = description.getText();
         String hoursToCompleteText = hoursToComplete.getText();
         Color cardColor = colorPreview.getBackground();
+        centerPanel.setPlacingCard(true);
 
         return null;  //Måste fixa så den return card
     }

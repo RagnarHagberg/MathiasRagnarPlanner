@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NorthPanel extends JPanel {
-    public NorthPanel(){
+    public NorthPanel(CenterPanel centerPanel){
         setLayout(new BorderLayout(50,50));
         //setLayout(new FlowLayout(FlowLayout.LEFT, 10,5));
         setBackground(Color.LIGHT_GRAY);
@@ -21,7 +21,7 @@ public class NorthPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreatorDialog textCardDialog = new TextCreatorDialog();
-                textCardDialog.initialize();
+                textCardDialog.initialize(centerPanel);
             }
         });
 
@@ -29,7 +29,7 @@ public class NorthPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreatorDialog imageCardDialog = new ImageCreatorDialog();
-                imageCardDialog.initialize();
+                imageCardDialog.initialize(centerPanel);
             }
         });
 

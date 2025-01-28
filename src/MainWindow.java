@@ -16,7 +16,7 @@ public class MainWindow {
     }
 
     private void initialize(){
-        FlatDarculaLaf.setup();
+
         frame = new JFrame();
         frame.setTitle("Planner");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -25,8 +25,9 @@ public class MainWindow {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout()); // set gaps here
 
-        NorthPanel northPanel = new NorthPanel();
+
         CenterPanel centerPanel = new CenterPanel();
+        NorthPanel northPanel = new NorthPanel(centerPanel);
         JScrollPane scrollPane = new JScrollPane(centerPanel);
 
         // Set only horizontal scroll

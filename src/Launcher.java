@@ -8,6 +8,7 @@ public class Launcher {
        SwingUtilities.invokeLater(new Runnable() {
            @Override
            public void run() {
+               FlatDarculaLaf.setup();
                MainWindow main = new MainWindow();
                main.show();
            }

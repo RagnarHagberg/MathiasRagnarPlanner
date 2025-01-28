@@ -18,6 +18,8 @@ public abstract class CreatorDialog extends JDialog{
     JButton colorChooserButton;
     JLabel colorPreview;
 
+    CenterPanel centerPanel;
+
     public CreatorDialog(){
         setLayout(new GridLayout(0, 1));
         setSize(300,300);
@@ -27,8 +29,10 @@ public abstract class CreatorDialog extends JDialog{
 
     public abstract Card createCard();
 
-    public void initialize(){
+    public void initialize(CenterPanel centerPanel){
         //resetFields();
+        this.centerPanel = centerPanel;
+        setModal(true);
         setLocationRelativeTo(null);
         setVisible(true);
     }
