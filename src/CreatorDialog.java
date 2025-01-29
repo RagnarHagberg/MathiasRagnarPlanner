@@ -3,23 +3,23 @@ import java.awt.*;
 
 public abstract class CreatorDialog extends JDialog{
 
-    JLabel titleLabel;
-    JTextField title;
+    protected JLabel titleLabel;
+    protected JTextField title;
 
-    JLabel descriptionLabel;
-    JTextArea description;
+    protected JLabel descriptionLabel;
+    protected JTextArea description;
 
-    JLabel hoursToCompleteLabel;
-    JTextField hoursToComplete;
+    protected JLabel hoursToCompleteLabel;
+    protected SpinnerModel hoursToCompleteValue;
 
-    JButton createButton;
-    JButton colorChooserButton;
-    JLabel colorPreview;
+    protected JButton createButton;
+    protected JButton colorChooserButton;
+    protected JLabel colorPreview;
 
     CenterPanel centerPanel;
 
     public CreatorDialog(){
-        setLayout(new GridLayout(0, 1));
+        setLayout(new GridLayout(0,1,10,10));
         setSize(300,300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);

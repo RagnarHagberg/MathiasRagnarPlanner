@@ -6,35 +6,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 
-class Card extends JPanel {
-    private final String title;
-    private Color cardColor = new Color(200, 230, 255);
+abstract class Card extends JPanel {
+    protected String title;
+    protected String description;
+    protected String hoursToComplete;
+    protected Color cardColor;
 
-    public Card(String title) {
-        this.title = title;
-        setBackground(Color.darkGray);
+
+    public Card(CardData cardData) {
+        this.title = cardData.getTitle();
+        this.description = cardData.getDescription();
+        this.hoursToComplete = cardData.getHoursToComplete();
+        this.cardColor = cardData.cardColor();
+        setBackground(this.cardColor);
         setLayout(new GridLayout(0,1,10,10));
 
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(titleLabel);
-
-        JButton button = new JButton("hello");
-
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Card pressed");
-                cardColor = Color.RED;
-                repaint();
-            }
-        });
-
-        add(button);
-    }
-
-    public String getTitle() {
-        return title;
     }
 
 }
+
