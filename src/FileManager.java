@@ -22,12 +22,12 @@ public class FileManager {
             for (CardData cardData : cardDataList) {
                 if (cardData instanceof TextCardData){
                     writer.write("TextCard," + cardData.getTitle() + "," + cardData.getX() + "," + cardData.getY()
-                            + "," + cardData.getDescription() + "," + cardData.getHoursToComplete() + "," + cardData.getBackgroundColor().toString());
+                            + "," + cardData.getDescription() + "," + cardData.getHoursToComplete() + "," + convertToHexString(cardData.getBackgroundColor()));
                     writer.newLine();
                 } else if (cardData instanceof ImageCardData) {
                     writer.write("ImageCard," + cardData.getTitle() + "," + cardData.getX() + "," + cardData.getY()
                             + "," + cardData.getDescription() + "," + cardData.getHoursToComplete() + ","
-                            + cardData.getBackgroundColor().toString() + "," + ((ImageCardData) cardData).getImagePath());
+                            + convertToHexString(cardData.getBackgroundColor()) + "," + ((ImageCardData) cardData).getImagePath());
                     writer.newLine();
                 }
 
@@ -44,21 +44,21 @@ public class FileManager {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (Objects.equals(parts[0], "TextCard")){
-                    String title = parts[0];
-                    int x = Integer.parseInt(parts[1]);
-                    int y = Integer.parseInt(parts[2]);
+                    String title = parts[1];
+                    int x = Integer.parseInt(parts[2]);
+                    int y = Integer.parseInt(parts[3]);
                     String description = parts[4];
                     String hoursToComplete = parts[5];
-                    Color backgroundColor = Color.getColor(parts[6]);
+                    Color backgroundColor = Color.decode(parts[6]);
                     cardDataList.add(new TextCardData(title, x, y, description, hoursToComplete, backgroundColor));
                 }
                 if (Objects.equals(parts[0], "ImageCard")){
-                    String title = parts[0];
-                    int x = Integer.parseInt(parts[1]);
-                    int y = Integer.parseInt(parts[2]);
+                    String title = parts[1];
+                    int x = Integer.parseInt(parts[2]);
+                    int y = Integer.parseInt(parts[3]);
                     String description = parts[4];
                     String hoursToComplete = parts[5];
-                    Color backgroundColor = Color.getColor(parts[6]);
+                    Color backgroundColor = Color.decode(parts[6]);
                     String imagePath = parts[7];
                     cardDataList.add(new ImageCardData(title, x, y, description, hoursToComplete, backgroundColor, imagePath));
                 }
@@ -89,5 +89,10 @@ public class FileManager {
             e.printStackTrace();
         }
         return width;
+    }
+
+    private String convertToHexString(Color color){
+        String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+        return hex;
     }
 }

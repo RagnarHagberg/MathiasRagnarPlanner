@@ -9,7 +9,7 @@ public class ImageCreatorDialog extends CreatorDialog{
 
     private JButton fileChooserButton;
     private JFileChooser fileChooser;
-    private JSpinner hoursToCompleteSpinner;
+
 
     public ImageCreatorDialog(){
         super();
@@ -25,7 +25,7 @@ public class ImageCreatorDialog extends CreatorDialog{
         description.setBackground(Color.WHITE);
 
         hoursToCompleteLabel = new JLabel("Hours:");
-        SpinnerModel f = new SpinnerNumberModel(0,0,1000, 1);
+        hoursToCompleteValue = new SpinnerNumberModel(0,0,1000, 1);
         hoursToCompleteSpinner = new JSpinner(hoursToCompleteValue);
         hoursToCompleteSpinner.setSize(50,50);
 
@@ -91,13 +91,14 @@ public class ImageCreatorDialog extends CreatorDialog{
         }
         String titleText = title.getText();
         String descriptionText = description.getText();
-        String hoursToCompleteText = hoursToCompleteToString(hoursToCompleteValue.getValue());
+        String hoursToCompleteText = hoursToCompleteValue.getValue().toString();
         Color cardColor = colorPreview.getBackground();
         String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
 
-
         ImageCardData imageCardData = new ImageCardData(titleText, 0,0,descriptionText, hoursToCompleteText, cardColor, imageFilePath);
         centerPanel.setTemporaryCardData(imageCardData);
+
+        dispose();
     }
     @Override
     public void resetFields(){
@@ -106,7 +107,5 @@ public class ImageCreatorDialog extends CreatorDialog{
 
     }
 
-    private String hoursToCompleteToString(Object value){
-        return value.toString();
-    }
+
 }

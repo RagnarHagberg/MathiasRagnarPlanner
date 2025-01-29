@@ -7,9 +7,9 @@ public class TextCard extends Card{
     JLabel descriptionLabel;
     JLabel hoursToCompleteLabel;
 
-    public TextCard(CardData cardData){
+    public TextCard(TextCardData cardData){
 
-        super(CardData cardData);
+        super(cardData);
         titleLabel = new JLabel(this.title);
         titleLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5,true));
 

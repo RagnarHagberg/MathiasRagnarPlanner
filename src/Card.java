@@ -17,7 +17,7 @@ abstract class Card extends JPanel {
         this.title = cardData.getTitle();
         this.description = cardData.getDescription();
         this.hoursToComplete = cardData.getHoursToComplete();
-        this.cardColor = cardData.cardColor();
+        this.cardColor = cardData.getBackgroundColor();
         setBackground(this.cardColor);
         setLayout(new GridLayout(0,1,10,10));
 

@@ -11,6 +11,7 @@ public abstract class CreatorDialog extends JDialog{
 
     protected JLabel hoursToCompleteLabel;
     protected SpinnerModel hoursToCompleteValue;
+    protected JSpinner hoursToCompleteSpinner;
 
     protected JButton createButton;
     protected JButton colorChooserButton;
@@ -33,13 +34,13 @@ public abstract class CreatorDialog extends JDialog{
         setModal(true);
         setLocationRelativeTo(null);
         setVisible(true);
+        resetFields();
     }
 
     public void resetFields(){  //behövs troligtvis inte
         title.setText("");
         description.setText("");
-        hoursToComplete.setText("");
+        hoursToCompleteValue.setValue(0);
     }
-
 }
 

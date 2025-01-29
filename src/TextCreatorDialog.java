@@ -20,8 +20,9 @@ public class TextCreatorDialog extends CreatorDialog {
         description.setBackground(Color.WHITE);
 
         hoursToCompleteLabel = new JLabel("Hours:");
-        hoursToComplete = new JTextField();
-        hoursToComplete.setBackground(Color.WHITE);
+        hoursToCompleteValue = new SpinnerNumberModel(0,0,1000, 1);
+        hoursToCompleteSpinner = new JSpinner(hoursToCompleteValue);
+        hoursToCompleteSpinner.setSize(50,50);
 
         createButton = new JButton("Create Card");
         createButton.setBackground(Color.GREEN);
@@ -60,7 +61,7 @@ public class TextCreatorDialog extends CreatorDialog {
         add(descriptionLabel);
         add(description);
         add(hoursToCompleteLabel);
-        add(hoursToComplete);
+        add(hoursToCompleteSpinner);
         add(colorChooserButton);
         add(createButton);
     }
@@ -70,11 +71,13 @@ public class TextCreatorDialog extends CreatorDialog {
     public void createCard() {
         String titleText = title.getText();
         String descriptionText = description.getText();
-        String hoursToCompleteText = hoursToComplete.getText();
+        String hoursToCompleteText = hoursToCompleteValue.getValue().toString();
         Color cardColor = colorPreview.getBackground();
 
         TextCardData textCardData = new TextCardData(titleText, 0,0, descriptionText, hoursToCompleteText, cardColor);
         centerPanel.setTemporaryCardData(textCardData);
+
+        dispose();
     }
 
 

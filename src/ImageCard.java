@@ -10,8 +10,8 @@ public class ImageCard extends Card{
     private ImageIcon imageIcon;
     private JLabel image;
 
-    public ImageCard(String title, String description, String hoursToComplete, Color cardColor,String imagePath){
-        super(title, description, hoursToComplete,  cardColor);
+    public ImageCard(ImageCardData cardData){
+        super(cardData);
         titleLabel = new JLabel(this.title);
         titleLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5,true));
 
@@ -21,7 +21,7 @@ public class ImageCard extends Card{
         hoursToCompleteLabel = new JLabel(this.hoursToComplete);
         hoursToCompleteLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5,true));
 
-        imageIcon = new ImageIcon(imagePath);
+        imageIcon = new ImageIcon(cardData.getImagePath());
         image = new JLabel(imageIcon);
 
         add(titleLabel);
