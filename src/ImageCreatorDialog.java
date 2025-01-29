@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class ImageCreatorDialog extends CreatorDialog{
 
@@ -80,16 +79,20 @@ public class ImageCreatorDialog extends CreatorDialog{
     }
 
     @Override
-    public Card createCard() {
+    public void createCard() {
+
+        if (fileChooser.getSelectedFile() == null){
+            return;
+        }
         String titleText = title.getText();
         String descriptionText = description.getText();
         String hoursToCompleteText = hoursToComplete.getText();
         Color cardColor = colorPreview.getBackground();
-        if(fileChooser.getSelectedFile() != null) {
-            String imageFile = fileChooser.getSelectedFile().getAbsolutePath();
-        }
-        centerPanel.setPlacingCard(true);
-        return null;
+        String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+
+        ImageCardData imageCardData = new ImageCardData(titleText, 0,0,descriptionText, hoursToCompleteText, cardColor, imageFilePath);
+        centerPanel.setTemporaryCardData(imageCardData);
     }
     @Override
     public void resetFields(){

@@ -10,6 +10,9 @@ import javax.swing.JComponent;
 public class MainWindow {
 
     private JFrame frame;
+    public CenterPanel centerPanel;
+    public NorthPanel northPanel;
+
 
     public MainWindow(){
         initialize();
@@ -26,8 +29,8 @@ public class MainWindow {
         frame.setLayout(new BorderLayout()); // set gaps here
 
 
-        CenterPanel centerPanel = new CenterPanel();
-        NorthPanel northPanel = new NorthPanel(centerPanel);
+        northPanel = new NorthPanel(this);
+        centerPanel = new CenterPanel(this);
         JScrollPane scrollPane = new JScrollPane(centerPanel);
 
         // Set only horizontal scroll

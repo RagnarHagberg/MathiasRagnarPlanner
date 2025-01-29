@@ -1,5 +1,3 @@
-import com.formdev.flatlaf.FlatDarculaLaf;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,7 +25,7 @@ public abstract class CreatorDialog extends JDialog{
         setResizable(false);
     }
 
-    public abstract Card createCard();
+    public abstract void createCard();
 
     public void initialize(CenterPanel centerPanel){
         //resetFields();

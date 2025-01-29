@@ -29,7 +29,9 @@ public class CenterPanel extends JPanel implements MouseListener {
 
     public boolean isPlacingCard = false;
 
-    public CenterPanel(){
+    private CardData temporaryCardData;
+
+    public CenterPanel(MainWindow mainWindow){
         setBackground(Color.lightGray);
         setLayout(null);
         this.addMouseListener(this);
@@ -55,7 +57,12 @@ public class CenterPanel extends JPanel implements MouseListener {
         loadCards(cardFilePath);
     }
 
-    public void setPlacingCard(boolean newValue){
+    public void setTemporaryCardData(CardData cardData){
+        temporaryCardData = cardData;
+        setPlacingCard(true);
+    }
+
+    private void setPlacingCard(boolean newValue){
         isPlacingCard = newValue;
     }
 
@@ -74,7 +81,23 @@ public class CenterPanel extends JPanel implements MouseListener {
         repaint();
     }
 
-    private void addCard(String title, int x, int y){
+    private void addCard(CardData cardData){
+        String title = cardData.getTitle();
+
+        int x = cardData.getX();
+        int y = cardData.getY();
+
+        boolean result = cardData instanceof TextCardData;
+        System.out.println(result);
+        // if carddata is textcarddata
+        /*
+        Card card = new TextCard(title, description)
+
+        else
+        Card card = New ImageCard(title, imagepath)
+
+         */
+
         Card card = new Card(title);
         cardCount++;
 
@@ -84,11 +107,13 @@ public class CenterPanel extends JPanel implements MouseListener {
         // Set the center of the card to the position of the mouse
         int cardX = x - cardWidth / 2;
         int cardY = y - cardHeight / 2;
+
         card.setBounds(cardX, cardY, cardWidth, cardHeight);
+
 
         this.add(card);
         timeline.addMarker(x);
-        cardDataList.add(new CardData(card.getTitle(), x, y));
+        cardDataList.add(cardData);
 
         // Refresh the panel
 
@@ -113,8 +138,7 @@ public class CenterPanel extends JPanel implements MouseListener {
             // new ImageCard
             // else textcard
 
-            Card card = new Card(cardData.title);
-            addCard(cardData.title, cardData.x, cardData.y);
+            addCard(cardData);
         }
     }
 
@@ -133,8 +157,13 @@ public class CenterPanel extends JPanel implements MouseListener {
         if (isPlacingCard) {
             Component deepestComponent = (SwingUtilities.getDeepestComponentAt(this, e.getX(), e.getY()));
 
-            addCard(Integer.toString(cardCount), e.getX(), e.getY());
+            CardData newCardData = temporaryCardData;
+            newCardData.setX(e.getX());
+            newCardData.setY(e.getY());
+
+            addCard(newCardData);
             saveCards(cardFilePath);
+
             isPlacingCard = false;
         }
     }

@@ -1,6 +1,8 @@
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FileManager {
 
@@ -18,8 +20,17 @@ public class FileManager {
     public void saveCardData(List<CardData> cardDataList, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (CardData cardData : cardDataList) {
-                writer.write(cardData.title + "," + cardData.x + "," + cardData.y);
-                writer.newLine();
+                if (cardData instanceof TextCardData){
+                    writer.write("TextCard," + cardData.getTitle() + "," + cardData.getX() + "," + cardData.getY()
+                            + "," + cardData.getDescription() + "," + cardData.getHoursToComplete() + "," + cardData.getBackgroundColor().toString());
+                    writer.newLine();
+                } else if (cardData instanceof ImageCardData) {
+                    writer.write("ImageCard," + cardData.getTitle() + "," + cardData.getX() + "," + cardData.getY()
+                            + "," + cardData.getDescription() + "," + cardData.getHoursToComplete() + ","
+                            + cardData.getBackgroundColor().toString() + "," + ((ImageCardData) cardData).getImagePath());
+                    writer.newLine();
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,13 +43,24 @@ public class FileManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 3) {
+                if (Objects.equals(parts[0], "TextCard")){
                     String title = parts[0];
                     int x = Integer.parseInt(parts[1]);
                     int y = Integer.parseInt(parts[2]);
-
-                    // if parts[0] == image new imagecardData
-                    cardDataList.add(new CardData(title, x, y));
+                    String description = parts[4];
+                    String hoursToComplete = parts[5];
+                    Color backgroundColor = Color.getColor(parts[6]);
+                    cardDataList.add(new TextCardData(title, x, y, description, hoursToComplete, backgroundColor));
+                }
+                if (Objects.equals(parts[0], "ImageCard")){
+                    String title = parts[0];
+                    int x = Integer.parseInt(parts[1]);
+                    int y = Integer.parseInt(parts[2]);
+                    String description = parts[4];
+                    String hoursToComplete = parts[5];
+                    Color backgroundColor = Color.getColor(parts[6]);
+                    String imagePath = parts[7];
+                    cardDataList.add(new ImageCardData(title, x, y, description, hoursToComplete, backgroundColor, imagePath));
                 }
             }
         } catch (IOException e) {
