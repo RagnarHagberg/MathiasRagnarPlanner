@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +10,7 @@ public class ImageCreatorDialog extends CreatorDialog{
 
     private JButton fileChooserButton;
     private JFileChooser fileChooser;
+    private JSpinner hoursToCompleteSpinner;
 
     public ImageCreatorDialog(){
         super();
@@ -23,8 +26,9 @@ public class ImageCreatorDialog extends CreatorDialog{
         description.setBackground(Color.WHITE);
 
         hoursToCompleteLabel = new JLabel("Hours:");
-        hoursToComplete = new JTextField();
-        hoursToComplete.setBackground(Color.WHITE);
+        SpinnerModel f = new SpinnerNumberModel(0,0,1000, 1);
+        hoursToCompleteSpinner = new JSpinner(hoursToCompleteValue);
+        hoursToCompleteSpinner.setSize(50,50);
 
         createButton = new JButton("Create Card");
         createButton.setBackground(Color.GREEN);
@@ -67,12 +71,13 @@ public class ImageCreatorDialog extends CreatorDialog{
             }
         });
 
+
         add(titleLabel);
         add(title);
         add(descriptionLabel);
         add(description);
         add(hoursToCompleteLabel);
-        add(hoursToComplete);
+        add(hoursToCompleteSpinner);
         add(fileChooserButton);
         add(colorChooserButton);
         add(createButton);
@@ -83,10 +88,10 @@ public class ImageCreatorDialog extends CreatorDialog{
     public Card createCard() {
         String titleText = title.getText();
         String descriptionText = description.getText();
-        String hoursToCompleteText = hoursToComplete.getText();
+        String hoursToCompleteText = hoursToCompleteToString(hoursToCompleteValue.getValue());
         Color cardColor = colorPreview.getBackground();
         if(fileChooser.getSelectedFile() != null) {
-            String imageFile = fileChooser.getSelectedFile().getAbsolutePath();
+            String imagePath = fileChooser.getSelectedFile().getAbsolutePath();
         }
         centerPanel.setPlacingCard(true);
         return null;
@@ -98,4 +103,7 @@ public class ImageCreatorDialog extends CreatorDialog{
 
     }
 
+    private String hoursToCompleteToString(Object value){
+        return value.toString();
+    }
 }

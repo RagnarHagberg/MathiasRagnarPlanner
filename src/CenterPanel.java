@@ -75,7 +75,7 @@ public class CenterPanel extends JPanel implements MouseListener {
     }
 
     private void addCard(String title, int x, int y){
-        Card card = new Card(title);
+        //Card card = new Card(title);
         cardCount++;
 
         int cardWidth = 200;
@@ -113,8 +113,8 @@ public class CenterPanel extends JPanel implements MouseListener {
             // new ImageCard
             // else textcard
 
-            Card card = new Card(cardData.title);
-            addCard(cardData.title, cardData.x, cardData.y);
+            //Card card = new Card(cardData.title);
+            //addCard(cardData.title, cardData.x, cardData.y);
         }
     }
 

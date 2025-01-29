@@ -74,7 +74,7 @@ public class TextCreatorDialog extends CreatorDialog {
         Color cardColor = colorPreview.getBackground();
         centerPanel.setPlacingCard(true);
 
-        return null;  //Måste fixa så den return card
+        return new TextCard(titleText, descriptionText, hoursToCompleteText, cardColor);  //Måste fixa så den return card
     }
 
 
