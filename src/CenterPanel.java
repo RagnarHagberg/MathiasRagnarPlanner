@@ -98,7 +98,7 @@ public class CenterPanel extends JPanel implements MouseListener {
         cardCount++;
 
         int cardWidth = 200;
-        int cardHeight = 120;
+        int cardHeight = 240;
 
         // Set the center of the card to the position of the mouse
         int cardX = x - cardWidth / 2;
