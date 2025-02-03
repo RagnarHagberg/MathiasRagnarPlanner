@@ -87,7 +87,7 @@ public class CenterPanel extends JPanel implements MouseListener {
         int x = cardData.getX();
         int y = cardData.getY();
 
-        Card card = new TextCard(new TextCardData("Empty Card", 0,0,"Empty", "1", Color.BLACK));
+        Card card = new TextCard(new TextCardData("Empty Card", 0,0,"Empty", "1", Color.BLACK, false));
 
         if (cardData instanceof TextCardData){
             card = new TextCard((TextCardData) cardData);
@@ -97,8 +97,8 @@ public class CenterPanel extends JPanel implements MouseListener {
 
         cardCount++;
 
-        int cardWidth = 200;
-        int cardHeight = 240;
+        int cardWidth = 280;
+        int cardHeight = 260;
 
         // Set the center of the card to the position of the mouse
         int cardX = x - cardWidth / 2;

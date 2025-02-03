@@ -6,20 +6,29 @@ abstract public class CardData {
     private String description;
     private String hoursToComplete;
     private Color backgroundColor;
+    private boolean finished;
 
-    public CardData(String title, int x, int y, String description, String hoursToComplete, Color backgroundColor) {
+    public CardData(String title, int x, int y, String description, String hoursToComplete, Color backgroundColor, boolean finished) {
         this.title = title;
         this.x = x;
         this.y = y;
         this.description = description;
         this.hoursToComplete = hoursToComplete;
         this.backgroundColor = backgroundColor;
+        this.finished = finished;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public boolean getFinished(){
+        return finished;
+    }
+
+    public void setFinished(boolean finished){
+        this.finished = finished;
+    }
     public int getY() {
         return y;
     }

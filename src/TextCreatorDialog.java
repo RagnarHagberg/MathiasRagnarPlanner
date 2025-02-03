@@ -90,7 +90,7 @@ public class TextCreatorDialog extends CreatorDialog {
         String hoursToCompleteText = hoursToCompleteValue.getValue().toString();
         Color cardColor = colorPreview.getBackground();
 
-        TextCardData textCardData = new TextCardData(titleText, 0,0, descriptionText, hoursToCompleteText, cardColor);
+        TextCardData textCardData = new TextCardData(titleText, 0,0, descriptionText, hoursToCompleteText, cardColor, false);
         centerPanel.setTemporaryCardData(textCardData);
 
         dispose();

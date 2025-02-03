@@ -15,6 +15,7 @@ Abstract class for the cards added to the timeline
     protected String description;
     protected String hoursToComplete;
     protected Color cardColor;
+    private CardData cardData;
 
     protected GridBagConstraints gridBagConstraints;
 
@@ -28,6 +29,13 @@ Abstract class for the cards added to the timeline
         this.description = cardData.getDescription();
         this.hoursToComplete = cardData.getHoursToComplete();
         this.cardColor = cardData.getBackgroundColor();
+
+        this.cardData = cardData;
+
+        if (cardData.getFinished() == true){
+            System.out.println("Hello");
+            this.cardColor = Color.GREEN;
+        }
 
         //Default look for the cards
         setBackground(this.cardColor);
@@ -45,6 +53,10 @@ Abstract class for the cards added to the timeline
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 1;
 
+    }
+
+    public void setFinished(boolean new_value){
+        this.cardData.setFinished(new_value);
     }
 
 }

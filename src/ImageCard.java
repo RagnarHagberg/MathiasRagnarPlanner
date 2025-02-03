@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class ImageCard extends Card{
 /*
@@ -15,8 +18,20 @@ and handles displaying the image chosen
 
         //title added to a JLabel to be displayed
         titleLabel = new JLabel(this.title);
+        Font titleFont = new Font("Serif", Font.BOLD, 36);
+        titleLabel.setFont(titleFont);
         //.setBorder creates a black border around the label
-        titleLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5,true));
+
+        int maxGridWidth = 3;
+        GridBagConstraints titleConstraints = new GridBagConstraints();
+        titleConstraints.gridx = 0;
+        titleConstraints.gridy = 0;
+        titleConstraints.gridwidth = maxGridWidth; // Span across two columns
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        titleConstraints.insets = new Insets(5, 5, 5, 5);
+        titleConstraints.anchor = GridBagConstraints.CENTER;
+        add(titleLabel, titleConstraints);
+
 
         //description is put into a JTextArea to handle more text and line wrapping
         descriptionArea = new JTextArea(this.description);
@@ -24,11 +39,66 @@ and handles displaying the image chosen
         descriptionArea.setLineWrap(true);
         descriptionArea.setOpaque(false); //makes area transparent
         descriptionArea.setEditable(false); //prevents user from editing
-        descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5, true));
+        //descriptionArea.setSize(new Dimension(50, 100));
+        descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 
-        //hoursToComplete put into JLabel to be displayed
+        GridBagConstraints descConstraints = new GridBagConstraints();
+        descConstraints.gridx = 0;
+        descConstraints.gridy = 1;
+        descConstraints.gridwidth = maxGridWidth;
+        descConstraints.fill = GridBagConstraints.BOTH; // Fill both horizontally and vertically
+        descConstraints.weightx = 1.0; // Stretch horizontally
+        descConstraints.insets = new Insets(5, 5, 5, 5);
+        add(descriptionArea, descConstraints);
+
+
+// Finished Button (Checkbox)
+        JCheckBox finishedButton = new JCheckBox("Klar");
+        GridBagConstraints finishedConstraints = new GridBagConstraints();
+        finishedConstraints.gridx = 0; // First column
+        finishedConstraints.gridy = 3; // Row 3
+        finishedConstraints.fill = GridBagConstraints.HORIZONTAL; // Stretch horizontally
+        finishedConstraints.insets = new Insets(5, 5, 5, 5);
+        finishedConstraints.anchor = GridBagConstraints.CENTER; // Center the button horizontally
+        finishedConstraints.weightx = 1.0; // Make it stretch equally across the columns
+        add(finishedButton, finishedConstraints);
+
+        finishedButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                boolean finished = (e.getStateChange() == ItemEvent.SELECTED); // true if checked, false if unchecked
+                System.out.println(finished);
+                setFinished(finished);
+
+                // add functionality to save new state.
+            }
+        });
+
+        // Move Button (Toggle)
+        JToggleButton moveButton = new JToggleButton("Flytta");
+        GridBagConstraints moveConstraints = new GridBagConstraints();
+        moveConstraints.gridx = 1; // Middle column
+        moveConstraints.gridy = 3; // Row 3
+        moveConstraints.fill = GridBagConstraints.HORIZONTAL; // Stretch horizontally
+        moveConstraints.insets = new Insets(5, 5, 5, 5);
+        moveConstraints.anchor = GridBagConstraints.CENTER; // Center the button horizontally
+        moveConstraints.weightx = 1.0; // Stretch horizontally
+        add(moveButton, moveConstraints);
+
+        // Hours to Complete Label (Position in the first column, centered)
         hoursToCompleteLabel = new JLabel(this.hoursToComplete);
-        hoursToCompleteLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5,true));
+        Font hoursFont = new Font("Serif", Font.BOLD, 36);
+        hoursToCompleteLabel.setFont(hoursFont);
+
+        GridBagConstraints hoursConstraints = new GridBagConstraints();
+        hoursConstraints.gridx = 2; // Last column
+        hoursConstraints.gridy = 3; // Row 3
+        hoursConstraints.fill = GridBagConstraints.HORIZONTAL; // Stretch horizontally
+        hoursConstraints.insets = new Insets(5, 5, 5, 5);
+        hoursConstraints.anchor = GridBagConstraints.CENTER; // Center the label horizontally
+        hoursConstraints.weightx = 1.0; // Stretch horizontally
+        add(hoursToCompleteLabel, hoursConstraints);
+
 
         //creates an imageIcon, scales it to 100x100 and creates a new scaled ImageIcon
         imageIcon = new ImageIcon(cardData.getImagePath());
@@ -39,11 +109,16 @@ and handles displaying the image chosen
         image = new JLabel(scaledIcon);
         image.setPreferredSize(new Dimension(100,100));
 
-        //adds components with gridBag constraints to style cards with given constraints in Card class
-        add(titleLabel, gridBagConstraints);
-        add(descriptionArea, gridBagConstraints);
-        add(hoursToCompleteLabel, gridBagConstraints);
-        add(image, gridBagConstraints);
+        GridBagConstraints imageConstraints = new GridBagConstraints();
+        imageConstraints.gridx = 0;
+        imageConstraints.gridy = 2;
+        imageConstraints.gridwidth = maxGridWidth;
+        imageConstraints.insets = new Insets(5, 5, 5, 5);
+        imageConstraints.anchor = GridBagConstraints.CENTER;
+        add(image, imageConstraints);
+
     }
+
+
 
 }

@@ -114,7 +114,7 @@ public class ImageCreatorDialog extends CreatorDialog{
         //firstly gets file and then converts into file path
         String imageFilePath = fileChooser.getSelectedFile().getAbsolutePath();
 
-        ImageCardData imageCardData = new ImageCardData(titleText, 0,0,descriptionText, hoursToCompleteText, cardColor, imageFilePath);
+        ImageCardData imageCardData = new ImageCardData(titleText, 0,0,descriptionText, hoursToCompleteText, cardColor, false, imageFilePath);
         centerPanel.setTemporaryCardData(imageCardData);
 
         dispose();
