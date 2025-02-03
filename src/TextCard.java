@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class TextCard extends Card {
     /*
@@ -56,6 +58,18 @@ public class TextCard extends Card {
         finishedConstraints.anchor = GridBagConstraints.CENTER; // Center the button horizontally
         finishedConstraints.weightx = 1.0; // Make it stretch equally across the columns
         add(finishedButton, finishedConstraints);
+
+        finishedButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                boolean finished = (e.getStateChange() == ItemEvent.SELECTED); // true if checked, false if unchecked
+                System.out.println(finished);
+                setFinished(finished);
+
+                // add functionality to save new state.
+            }
+        });
+
 
         // Move Button (Toggle)
         JToggleButton moveButton = new JToggleButton("Flytta");
