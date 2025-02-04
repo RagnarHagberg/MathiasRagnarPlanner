@@ -4,146 +4,117 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import com.formdev.flatlaf.FlatDarculaLaf;
-
 
 public class CenterPanel extends JPanel implements MouseListener {
 
-    private TimelinePanel timeline;
-    private JButton extendButton;
+    private final TimelinePanel timeline;
+    private final JButton extendButton;
+    private final List<CardData> cardDataList = new ArrayList<>();
 
-    private int panelWidth = 3000;
-    private int timelineX = 0;
-    private int timelineY = 250;
-    private int timelineWidth = panelWidth-200;
-    private int timelineHeight = 100;
+    private int panelWidth;
+    private int timelineWidth;
 
-    private int buttonCardMargin = 20;
+    private final int TIMELINE_Y = 300;
+    private final int TIMELINE_HEIGHT = 100;
+    private final int BUTTON_CARD_MARGIN = 20;
+    private final String CARD_FILE_PATH = "cards_data.txt";
+    private final String PANEL_WIDTH_PATH = "timeline_data.txt";
 
-    private int cardCount = 1;
-
-    private List<CardData> cardDataList = new ArrayList<CardData>();
-
-    private String cardFilePath = "cards_data.txt";
-    private String panelWidthPath = "timeline_data.txt";
-
-    public boolean isPlacingCard = false;
-
+    private boolean isPlacingCard = false;
     private CardData temporaryCardData;
 
-    public CenterPanel(MainWindow mainWindow){
-        setBackground(Color.lightGray);
+    public CenterPanel(MainWindow mainWindow) {
+        setBackground(Color.LIGHT_GRAY);
         setLayout(null);
-        this.addMouseListener(this);
+        addMouseListener(this);
 
-        panelWidth = FileManager.getInstance().loadPanelWidth(panelWidthPath);
+        panelWidth = FileManager.getInstance().loadPanelWidth(PANEL_WIDTH_PATH);
         setPanelWidth(panelWidth);
 
-
-        setPreferredSize(new Dimension(panelWidth,1)); // A large width to allow seemingly indefinite scroll
-        // the timeline should span the entire scrollable width
-        timeline = new TimelinePanel();
-        timeline.setBounds(timelineX, timelineY, timelineWidth, timelineHeight);
+        setPreferredSize(new Dimension(panelWidth, 1));
+        timeline = createTimelinePanel();
         add(timeline);
 
-        // Add button to extend the timeline and panel
-        extendButton = new JButton();
-        extendButton.setText("+");
-        extendButton.setBounds(timelineWidth + buttonCardMargin, timelineY, 100, 100);
-        extendButton.addActionListener(_ -> extendPanel());
-        extendButton.setFocusable(false);
+        extendButton = createExtendButton();
         add(extendButton);
 
-        loadCards(cardFilePath);
+        loadCards();
     }
 
-    public String getCardFilePath(){return cardFilePath;}
+    private TimelinePanel createTimelinePanel() {
+        TimelinePanel panel = new TimelinePanel();
+        panel.setBounds(0, TIMELINE_Y, timelineWidth, TIMELINE_HEIGHT);
+        return panel;
+    }
 
-    public void setTemporaryCardData(CardData cardData){
+    private JButton createExtendButton() {
+        JButton button = new JButton("+");
+        button.setBounds(timelineWidth + BUTTON_CARD_MARGIN, TIMELINE_Y, 100, 100);
+        button.addActionListener(e -> extendPanel());
+        button.setFocusable(false);
+        return button;
+    }
+
+    public void setTemporaryCardData(CardData cardData) {
         temporaryCardData = cardData;
-        setPlacingCard(true);
+        isPlacingCard = true;
     }
 
-    private void setPlacingCard(boolean newValue){
-        isPlacingCard = newValue;
-    }
-
-    private void setPanelWidth(int width){
+    private void setPanelWidth(int width) {
         panelWidth = width;
-        timelineWidth = panelWidth -200;
-        FileManager.getInstance().savePanelWidth(panelWidth, panelWidthPath);
+        timelineWidth = panelWidth - 200;
+        FileManager.getInstance().savePanelWidth(panelWidth, PANEL_WIDTH_PATH);
     }
 
-    private void extendPanel(){
+    private void extendPanel() {
         setPanelWidth(panelWidth + 500);
-        setPreferredSize(new Dimension(panelWidth,1));
-        timeline.setBounds(timelineX, timelineY, timelineWidth, timelineHeight);
-        extendButton.setBounds(timelineWidth+buttonCardMargin, timelineY, 100, 100);
+        setPreferredSize(new Dimension(panelWidth, 1));
+        timeline.setBounds(0, TIMELINE_Y, timelineWidth, TIMELINE_HEIGHT);
+        extendButton.setBounds(timelineWidth + BUTTON_CARD_MARGIN, TIMELINE_Y, 100, 100);
         revalidate();
         repaint();
     }
 
-    private void addCard(CardData cardData){
-        String title = cardData.getTitle();
+    private void addCard(CardData cardData) {
+        Card card = createCard(cardData);
 
-        int x = cardData.getX();
-        int y = cardData.getY();
+        int cardX = cardData.getX() - 140;  // Centering card horizontally
+        int cardY = (cardData.getY() > TIMELINE_Y) ? 410 : 11;
 
-        Card card = new TextCard(new TextCardData("Empty Card", 0,0,"Empty", "1", Color.BLACK, false), this);
-
-        if (cardData instanceof TextCardData){
-            card = new TextCard((TextCardData) cardData, this);
-        } else if (cardData instanceof ImageCardData) {
-            card = new ImageCard((ImageCardData) cardData, this);
-        }
-
-        cardCount++;
-
-        int cardWidth = 280;
-        int cardHeight = 260;
-
-        // Set the center of the card to the position of the mouse
-        int cardX = x - cardWidth / 2;
-        int cardY = y - cardHeight / 2;
-
-        card.setBounds(cardX, cardY, cardWidth, cardHeight);
-
-
-        this.add(card);
-        timeline.addMarker(x);
+        card.setBounds(cardX, cardY, 280, 260);
+        add(card);
+        timeline.addMarker(cardData.getX());
         cardDataList.add(cardData);
 
-        // Refresh the panel
-
-        this.revalidate();
-        this.repaint();
+        revalidate();
+        repaint();
     }
 
-    public void saveCards(String filename){
-        FileManager.getInstance().saveCardData(cardDataList, filename);
+    private Card createCard(CardData cardData) {
+        if (cardData instanceof TextCardData) {
+            return new TextCard((TextCardData) cardData, this);
+        } else if (cardData instanceof ImageCardData) {
+            return new ImageCard((ImageCardData) cardData, this);
+        }
+        return new TextCard(new TextCardData("Empty Card", 0, 0, "Empty", "1", Color.BLACK, false), this);
     }
 
-    private void loadCards(String filename){
-        removeCards(cardDataList);
+    public void saveCards() {
+        FileManager.getInstance().saveCardData(cardDataList, CARD_FILE_PATH);
+    }
 
+    private void loadCards() {
+        removeAllCards();
         cardDataList.clear();
+        List<CardData> loadedCards = FileManager.getInstance().loadCardData(CARD_FILE_PATH);
 
-        List<CardData> tempCardDataList = new ArrayList<CardData>();
-        tempCardDataList = FileManager.getInstance().loadCardData(filename);
-
-        for (CardData cardData : tempCardDataList) {
-            // if carddata is imagecarddata
-            // new ImageCard
-            // else textcard
-
+        for (CardData cardData : loadedCards) {
             addCard(cardData);
         }
     }
 
-
-    private void removeCards(List<CardData> cardDataList) {
-        Component[] components = getComponents();
-        for (Component component : components) {
+    private void removeAllCards() {
+        for (Component component : getComponents()) {
             if (component instanceof Card) {
                 remove(component);
             }
@@ -153,36 +124,25 @@ public class CenterPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (isPlacingCard) {
-            Component deepestComponent = (SwingUtilities.getDeepestComponentAt(this, e.getX(), e.getY()));
+            temporaryCardData.setX(e.getX());
+            temporaryCardData.setY(e.getY());
 
-            CardData newCardData = temporaryCardData;
-            newCardData.setX(e.getX());
-            newCardData.setY(e.getY());
-
-            addCard(newCardData);
-            saveCards(cardFilePath);
+            addCard(temporaryCardData);
+            saveCards();
 
             isPlacingCard = false;
         }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) {}
 }

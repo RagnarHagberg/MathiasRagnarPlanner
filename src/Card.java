@@ -1,10 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.RoundRectangle2D;
+
 
 abstract class Card extends JPanel {
 /*
@@ -59,6 +55,7 @@ Abstract class for the cards added to the timeline
 
     }
 
+
     public boolean getFinished(){
         return this.cardData.getFinished();
     }
@@ -74,7 +71,7 @@ Abstract class for the cards added to the timeline
         }
         this.cardData.setFinished(new_value);
         setBackground(this.cardColor);
-        centerPanel.saveCards(centerPanel.getCardFilePath());
+        centerPanel.saveCards();
 
     }
 

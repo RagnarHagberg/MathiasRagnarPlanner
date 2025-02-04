@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class ImageCard extends Card{
 /*
@@ -65,15 +63,12 @@ and handles displaying the image chosen
 
         add(finishedButton, finishedConstraints);
 
-        finishedButton.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                boolean finished = (e.getStateChange() == ItemEvent.SELECTED); // true if checked, false if unchecked
-                System.out.println(finished);
-                setFinished(finished);
+        finishedButton.addItemListener(e -> {
+            boolean finished = (e.getStateChange() == ItemEvent.SELECTED); // true if checked, false if unchecked
+            System.out.println(finished);
+            setFinished(finished);
 
-                // add functionality to save new state.
-            }
+            // add functionality to save new state.
         });
 
         // Hours to Complete Label (Position in the first column, centered)
@@ -107,9 +102,5 @@ and handles displaying the image chosen
         imageConstraints.insets = new Insets(5, 5, 5, 5);
         imageConstraints.anchor = GridBagConstraints.CENTER;
         add(image, imageConstraints);
-
     }
-
-
-
 }

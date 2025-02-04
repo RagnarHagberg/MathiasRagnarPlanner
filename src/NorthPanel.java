@@ -21,7 +21,7 @@ public class NorthPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreatorDialog textCardDialog = new TextCreatorDialog();
-                textCardDialog.initialize(mainWindow.centerPanel);
+                textCardDialog.initialize(mainWindow.getCenterPanel());
             }
         });
 
@@ -29,7 +29,7 @@ public class NorthPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreatorDialog imageCardDialog = new ImageCreatorDialog();
-                imageCardDialog.initialize(mainWindow.centerPanel);
+                imageCardDialog.initialize(mainWindow.getCenterPanel());
             }
         });
 
