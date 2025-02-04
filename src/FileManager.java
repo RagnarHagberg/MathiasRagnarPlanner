@@ -53,7 +53,6 @@ public class FileManager {
                     String hoursToComplete = parts[5];
                     Color backgroundColor = Color.decode(parts[6]);
                     boolean finished = Boolean.parseBoolean(parts[7].strip());
-                    System.out.println(finished);
                     cardDataList.add(new TextCardData(title, x, y, description, hoursToComplete, backgroundColor, finished));
                 }
                 if (Objects.equals(parts[0], "ImageCard")){
@@ -65,8 +64,6 @@ public class FileManager {
                     Color backgroundColor = Color.decode(parts[6]);
                     String imagePath = parts[7];
                     boolean finished = Boolean.parseBoolean(parts[8].strip());
-                    System.out.println(finished);
-
                     cardDataList.add(new ImageCardData(title, x, y, description, hoursToComplete, backgroundColor,finished, imagePath));
                 }
             }

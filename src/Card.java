@@ -33,7 +33,6 @@ Abstract class for the cards added to the timeline
         this.centerPanel = centerPanel;
 
         if (cardData.getFinished()){
-            System.out.println("Hello");
             this.cardColor = Color.GREEN;
         }
 
