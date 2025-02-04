@@ -1,9 +1,14 @@
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NorthPanel extends JPanel {
+
+    private CreatorDialog strategy;
+
     public NorthPanel(MainWindow mainWindow){
         setLayout(new BorderLayout(50,50));
         //setLayout(new FlowLayout(FlowLayout.LEFT, 10,5));
@@ -17,30 +22,33 @@ public class NorthPanel extends JPanel {
         JMenuItem textCardButton = new JMenuItem("Text card");
         JMenuItem imageCardButton = new JMenuItem("Image card");
 
+        // Strategy pattern
+        // NorthPanel är context
+        // Creatordialog is our abstract class working as interface
+
+
+        // Set Strategy
         textCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreatorDialog textCardDialog = new TextCreatorDialog();
-                textCardDialog.initialize(mainWindow.getCenterPanel());
-            }
+                // Creatordialog is our equivalent
+                setStrategy(new TextCreatorDialog());
+                executeStrategy(mainWindow.getCenterPanel());            }
         });
 
+
+        // Set Strategy
         imageCardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreatorDialog imageCardDialog = new ImageCreatorDialog();
-                imageCardDialog.initialize(mainWindow.getCenterPanel());
+                setStrategy(new ImageCreatorDialog());
+                executeStrategy(mainWindow.getCenterPanel());
             }
         });
-
 
         add(addCardMenu, BorderLayout.EAST);
         addCardMenu.add(textCardButton);
         addCardMenu.add(imageCardButton);
-
-
-
-        CreatorDialog dialog = new ImageCreatorDialog();
 
         add(label, BorderLayout.WEST);
 
@@ -56,5 +64,13 @@ public class NorthPanel extends JPanel {
         add(button, BorderLayout.EAST);
 
 
+    }
+
+    private void setStrategy(CreatorDialog newDialog){
+        strategy = newDialog;
+    }
+
+    private void executeStrategy(CenterPanel centerPanel){
+        strategy.initialize(centerPanel);
     }
 }

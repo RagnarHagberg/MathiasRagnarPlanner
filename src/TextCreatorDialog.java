@@ -95,8 +95,4 @@ public class TextCreatorDialog extends CreatorDialog {
 
         dispose();
     }
-
-
-
-
 }
