@@ -8,8 +8,8 @@ public class TextCard extends Card {
     Adds the different elements to a text card and incorporates the values from TextCreatorDialog
     */
 
-    public TextCard(TextCardData cardData) {
-        super(cardData);
+    public TextCard(TextCardData cardData, CenterPanel centerPanel) {
+        super(cardData, centerPanel);
 
         // Set the layout manager for the card to GridBagLayout
         setLayout(new GridBagLayout());
@@ -25,7 +25,6 @@ public class TextCard extends Card {
         titleConstraints.gridx = 0;
         titleConstraints.gridy = 0;
         titleConstraints.gridwidth = maxGridWidth; // Span across two columns
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
         titleConstraints.insets = new Insets(5, 5, 5, 5);
         titleConstraints.anchor = GridBagConstraints.CENTER;
         add(titleLabel, titleConstraints);
@@ -57,6 +56,9 @@ public class TextCard extends Card {
         finishedConstraints.insets = new Insets(5, 5, 5, 5);
         finishedConstraints.anchor = GridBagConstraints.CENTER; // Center the button horizontally
         finishedConstraints.weightx = 1.0; // Make it stretch equally across the columns
+
+        finishedButton.setSelected(this.getFinished());
+
         add(finishedButton, finishedConstraints);
 
         finishedButton.addItemListener(new ItemListener() {
@@ -70,25 +72,13 @@ public class TextCard extends Card {
             }
         });
 
-
-        // Move Button (Toggle)
-        JToggleButton moveButton = new JToggleButton("Flytta");
-        GridBagConstraints moveConstraints = new GridBagConstraints();
-        moveConstraints.gridx = 1; // Middle column
-        moveConstraints.gridy = 2; // Row 3
-        moveConstraints.fill = GridBagConstraints.HORIZONTAL; // Stretch horizontally
-        moveConstraints.insets = new Insets(5, 5, 5, 5);
-        moveConstraints.anchor = GridBagConstraints.CENTER; // Center the button horizontally
-        moveConstraints.weightx = 1.0; // Stretch horizontally
-        add(moveButton, moveConstraints);
-
         // Hours to Complete Label (Position in the first column, centered)
         hoursToCompleteLabel = new JLabel(this.hoursToComplete);
         Font hoursFont = new Font("Serif", Font.BOLD, 36);
         hoursToCompleteLabel.setFont(hoursFont);
 
         GridBagConstraints hoursConstraints = new GridBagConstraints();
-        hoursConstraints.gridx = 2; // Last column
+        hoursConstraints.gridx = 1; // Last column
         hoursConstraints.gridy = 2; // Row 3
         hoursConstraints.fill = GridBagConstraints.HORIZONTAL; // Stretch horizontally
         hoursConstraints.insets = new Insets(5, 5, 5, 5);

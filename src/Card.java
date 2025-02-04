@@ -16,6 +16,7 @@ Abstract class for the cards added to the timeline
     protected String hoursToComplete;
     protected Color cardColor;
     private CardData cardData;
+    private Color previousCardColor;
 
     protected GridBagConstraints gridBagConstraints;
 
@@ -23,7 +24,9 @@ Abstract class for the cards added to the timeline
     protected JTextArea descriptionArea;
     protected JLabel hoursToCompleteLabel;
 
-    public Card(CardData cardData) {
+    private CenterPanel centerPanel;
+
+    public Card(CardData cardData, CenterPanel centerPanel) {
         //Values to add to the cards to be displayed
         this.title = cardData.getTitle();
         this.description = cardData.getDescription();
@@ -31,8 +34,9 @@ Abstract class for the cards added to the timeline
         this.cardColor = cardData.getBackgroundColor();
 
         this.cardData = cardData;
+        this.centerPanel = centerPanel;
 
-        if (cardData.getFinished() == true){
+        if (cardData.getFinished()){
             System.out.println("Hello");
             this.cardColor = Color.GREEN;
         }
@@ -55,8 +59,23 @@ Abstract class for the cards added to the timeline
 
     }
 
+    public boolean getFinished(){
+        return this.cardData.getFinished();
+    }
+
+
     public void setFinished(boolean new_value){
+        if (new_value){
+            this.previousCardColor = this.cardColor;
+            this.cardColor = Color.GREEN;
+        }
+        else{
+            this.cardColor = this.cardData.getBackgroundColor();
+        }
         this.cardData.setFinished(new_value);
+        setBackground(this.cardColor);
+        centerPanel.saveCards(centerPanel.getCardFilePath());
+
     }
 
 }

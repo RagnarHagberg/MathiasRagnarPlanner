@@ -57,6 +57,8 @@ public class CenterPanel extends JPanel implements MouseListener {
         loadCards(cardFilePath);
     }
 
+    public String getCardFilePath(){return cardFilePath;}
+
     public void setTemporaryCardData(CardData cardData){
         temporaryCardData = cardData;
         setPlacingCard(true);
@@ -87,12 +89,12 @@ public class CenterPanel extends JPanel implements MouseListener {
         int x = cardData.getX();
         int y = cardData.getY();
 
-        Card card = new TextCard(new TextCardData("Empty Card", 0,0,"Empty", "1", Color.BLACK, false));
+        Card card = new TextCard(new TextCardData("Empty Card", 0,0,"Empty", "1", Color.BLACK, false), this);
 
         if (cardData instanceof TextCardData){
-            card = new TextCard((TextCardData) cardData);
+            card = new TextCard((TextCardData) cardData, this);
         } else if (cardData instanceof ImageCardData) {
-            card = new ImageCard((ImageCardData) cardData);
+            card = new ImageCard((ImageCardData) cardData, this);
         }
 
         cardCount++;
@@ -117,7 +119,7 @@ public class CenterPanel extends JPanel implements MouseListener {
         this.repaint();
     }
 
-    private void saveCards(String filename){
+    public void saveCards(String filename){
         FileManager.getInstance().saveCardData(cardDataList, filename);
     }
 
